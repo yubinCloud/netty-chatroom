@@ -1,4 +1,4 @@
-package com.example.chatroom.server.message;
+package com.example.chatroom.message;
 
 import lombok.Data;
 

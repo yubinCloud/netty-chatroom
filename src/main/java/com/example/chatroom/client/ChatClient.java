@@ -1,7 +1,7 @@
 package com.example.chatroom.client;
 
-import com.example.chatroom.server.protocol.MessageCodec;
-import com.example.chatroom.server.protocol.ProtocolFrameDecoder;
+import com.example.chatroom.protocol.MessageCodec;
+import com.example.chatroom.protocol.ProtocolFrameDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

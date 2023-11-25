@@ -1,4 +1,4 @@
-package com.example.chatroom.server.protocol;
+package com.example.chatroom.protocol;
 
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 

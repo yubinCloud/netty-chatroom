@@ -1,8 +1,7 @@
-package com.example.chatroom.server.protocol;
+package com.example.chatroom.protocol;
 
-import com.example.chatroom.server.message.Message;
+import com.example.chatroom.message.Message;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 import lombok.extern.slf4j.Slf4j;
