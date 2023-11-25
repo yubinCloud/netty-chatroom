@@ -20,7 +20,7 @@ public class UserServiceMemoryImpl implements UserService {
 
     @Override
     public boolean login(String username, String password) {
-        String realPassword = repo.get(password);
+        String realPassword = repo.get(username);
         return !Objects.isNull(realPassword) && password.equals(realPassword);
     }
 }

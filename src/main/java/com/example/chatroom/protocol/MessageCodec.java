@@ -25,7 +25,7 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         // 3. 1个字节的序列化方式：jdk 0，json 1
         byteBuf.writeByte(0);
         // 4. 1个字节的指令类型
-        byteBuf.writeByte(message.getMessageType());
+        byteBuf.writeByte(message.getMessageType().getTypeValue());
         // 5. 4个字节
         byteBuf.writeInt(message.getSequentId());
         // 无意义，指令对齐

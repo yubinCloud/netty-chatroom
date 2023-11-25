@@ -1,5 +1,6 @@
 package com.example.chatroom.client;
 
+import com.example.chatroom.client.handler.ClientBzHandler;
 import com.example.chatroom.protocol.MessageCodec;
 import com.example.chatroom.protocol.ProtocolFrameDecoder;
 import io.netty.bootstrap.Bootstrap;
@@ -27,6 +28,7 @@ public class ChatClient {
                     ch.pipeline().addLast(new ProtocolFrameDecoder());  // 将收到的字节流基于 LTC Decoder 进行组装或切分，使之成为一个个完整的包，解决半包和粘包的问题
                     ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
                     ch.pipeline().addLast(new MessageCodec());  // 实现 bytes 与实体类 message 的编解码
+                    ch.pipeline().addLast("bz handler", new ClientBzHandler());  // client 的业务 handler
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();
