@@ -31,10 +31,11 @@ public class ChatServer {
                 @Override
                 protected void initChannel(NioSocketChannel ch) {
                     ch.pipeline().addLast(new ProtocolFrameDecoder());  // 将收到的字节流基于 LTC Decoder 进行组装或切分，使之成为一个个完整的包，解决半包和粘包的问题
-                    ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
+//                    ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
                     ch.pipeline().addLast(new MessageCodec());  // 实现 bytes 与实体类 message 的编解码
                     // 添加各 simple channel inbound handler，每种 handler 负责处理一类 message
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.LOGIN_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.CHAT_REQUEST_MESSAGE));
                 }
             });
             Channel channel = serverBootstrap.bind(8080).sync().channel();

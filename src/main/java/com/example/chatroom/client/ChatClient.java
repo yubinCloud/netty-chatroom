@@ -1,5 +1,6 @@
 package com.example.chatroom.client;
 
+import com.example.chatroom.client.handler.ChatMessageHandler;
 import com.example.chatroom.client.handler.ClientBzHandler;
 import com.example.chatroom.protocol.MessageCodec;
 import com.example.chatroom.protocol.ProtocolFrameDecoder;
@@ -16,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ChatClient {
 
+    private static final ChatMessageHandler CHAT_MESSAGE_HANDLER = new ChatMessageHandler();
+
     public static void main(String[] args) {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
 
@@ -26,9 +29,10 @@ public class ChatClient {
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel ch) {
                     ch.pipeline().addLast(new ProtocolFrameDecoder());  // 将收到的字节流基于 LTC Decoder 进行组装或切分，使之成为一个个完整的包，解决半包和粘包的问题
-                    ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
+//                    ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
                     ch.pipeline().addLast(new MessageCodec());  // 实现 bytes 与实体类 message 的编解码
                     ch.pipeline().addLast("bz handler", new ClientBzHandler());  // client 的业务 handler
+                    ch.pipeline().addLast(CHAT_MESSAGE_HANDLER);
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();

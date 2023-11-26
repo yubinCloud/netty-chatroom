@@ -27,7 +27,7 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         // 4. 1个字节的指令类型
         byteBuf.writeByte(message.getMessageType().getTypeValue());
         // 5. 4个字节
-        byteBuf.writeInt(message.getSequentId());
+        byteBuf.writeInt(message.getSequenceId());
         // 无意义，指令对齐
         byteBuf.writeByte(0xff);
         // 6. 获取内容的字节数组

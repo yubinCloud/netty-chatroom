@@ -1,6 +1,6 @@
 package com.example.chatroom.client.handler;
 
-import com.example.chatroom.command.CommandEnum;
+import com.example.chatroom.client.command.CommandEnum;
 import com.example.chatroom.message.Message;
 import com.example.chatroom.message.enums.LoginRequestMessage;
 import com.example.chatroom.message.enums.LoginResponseMessage;
@@ -24,14 +24,14 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
      * 接收服务器的响应消息
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object message) {
-        System.out.println("$ 收到消息：" + message);
+    public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
         if (message instanceof LoginResponseMessage responseMessage) {
             if (responseMessage.isSuccess()) {
                 LOGIN_SUCCESS.set(true);
             }
             COUNT_DOWN_LATCH.countDown();  // 唤醒 `client-console` 线程
         }
+        super.channelRead(ctx, message);
     }
 
 
@@ -84,7 +84,7 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
                 ctx.channel().close();
                 return;
             }
-            CommandEnum.valueOf(commandName).getHandler().handle(username, args);
+            CommandEnum.valueOf(commandName).getHandler().handle(ctx, username, args);
         }
     }
 

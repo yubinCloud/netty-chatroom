@@ -1,6 +1,6 @@
-package com.example.chatroom.command;
+package com.example.chatroom.client.command;
 
-import com.example.chatroom.command.handler.*;
+import com.example.chatroom.client.command.handler.*;
 
 public enum CommandEnum {
 
