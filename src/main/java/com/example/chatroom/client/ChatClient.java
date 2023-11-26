@@ -32,7 +32,7 @@ public class ChatClient {
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();
-            channel.closeFuture().sync();
+            channel.closeFuture().sync();  // 当 channel 调用 close() 时会触发这一行的继续执行
         } catch (InterruptedException exception) {
             log.error("client error. reason: ", exception);
         }
