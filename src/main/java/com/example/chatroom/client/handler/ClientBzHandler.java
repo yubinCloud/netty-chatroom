@@ -1,5 +1,6 @@
 package com.example.chatroom.client.handler;
 
+import com.example.chatroom.command.CommandEnum;
 import com.example.chatroom.message.Message;
 import com.example.chatroom.message.enums.LoginRequestMessage;
 import com.example.chatroom.message.enums.LoginResponseMessage;
@@ -24,7 +25,7 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object message) {
-        System.out.println("收到消息：" + message);
+        System.out.println("$ 收到消息：" + message);
         if (message instanceof LoginResponseMessage responseMessage) {
             if (responseMessage.isSuccess()) {
                 LOGIN_SUCCESS.set(true);
@@ -74,5 +75,28 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
         } else {
             System.out.println("$ 登录成功");
         }
+        while (true) {
+            printPrompt();
+            String command = scanner.nextLine();  // 假设用户输入的命令一定是正确的
+            String[] args = command.split("\s+");
+            String commandName = args[0].toUpperCase();
+            if ("quit".equals(commandName)) {
+                ctx.channel().close();
+                return;
+            }
+            CommandEnum.valueOf(commandName).getHandler().handle(username, args);
+        }
+    }
+
+    private void printPrompt() {
+        System.out.println("=========== PROMPT  =============");
+        System.out.printf("\uD83D\uDCDE %s [username] [content]\n", CommandEnum.SEND.getValue());
+        System.out.printf("\uD83D\uDCDE %s [group name] [content]\n", CommandEnum.GSEND.getValue());
+        System.out.printf("\uD83E\uDD73 %s [group name] [m1,m2,m3...]\n", CommandEnum.GCREATE.getValue());
+        System.out.printf("\uD83E\uDD73 %s [group name]\n", CommandEnum.GMEMBERS.getValue());
+        System.out.printf("\uD83E\uDD1D %s [group name]\n", CommandEnum.GJOIN.getValue());
+        System.out.printf("\uD83D\uDC50 %s [group name]\n", CommandEnum.GQUIT.getValue());
+        System.out.printf("\uD83D\uDECC %s\n", CommandEnum.QUIT.getValue());
+        System.out.println("==================================");
     }
 }
