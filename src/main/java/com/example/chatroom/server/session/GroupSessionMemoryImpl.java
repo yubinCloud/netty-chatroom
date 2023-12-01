@@ -13,7 +13,8 @@ public class GroupSessionMemoryImpl implements GroupSession {
     @Override
     public Group createGroup(String name, Set<String> members) {
         Group group = new Group(name, members);
-        return groupMapping.putIfAbsent(name, group);
+        var hasExists = groupMapping.putIfAbsent(name, group);
+        return Objects.isNull(hasExists)? group: null;
     }
 
     @Override

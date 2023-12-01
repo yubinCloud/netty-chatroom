@@ -35,7 +35,7 @@ public class ChatServer {
                     ch.pipeline().addLast(new MessageCodec());  // 实现 bytes 与实体类 message 的编解码
                     // 添加各 simple channel inbound handler，每种 handler 负责处理一类 message
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.LOGIN_REQUEST_MESSAGE));
-                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.CHAT_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_CREATE_REQUEST_MESSAGE));
                 }
             });
             Channel channel = serverBootstrap.bind(8080).sync().channel();

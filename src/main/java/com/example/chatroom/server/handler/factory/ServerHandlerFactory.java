@@ -3,6 +3,7 @@ package com.example.chatroom.server.handler.factory;
 import com.example.chatroom.message.Message;
 import com.example.chatroom.message.MessageEnum;
 import com.example.chatroom.server.handler.ChatRequestMessageHandler;
+import com.example.chatroom.server.handler.GroupCreateRequestMessageHandler;
 import com.example.chatroom.server.handler.LoginRequestMessageHandler;
 import io.netty.channel.SimpleChannelInboundHandler;
 import java.util.Map;
@@ -15,6 +16,7 @@ public abstract class ServerHandlerFactory {
     static {
         MESSAGE_HANDLER_MAP.put(MessageEnum.LOGIN_REQUEST_MESSAGE, new LoginRequestMessageHandler());
         MESSAGE_HANDLER_MAP.put(MessageEnum.CHAT_REQUEST_MESSAGE, new ChatRequestMessageHandler());
+        MESSAGE_HANDLER_MAP.put(MessageEnum.GROUP_CREATE_REQUEST_MESSAGE, new GroupCreateRequestMessageHandler());
     }
 
     public static SimpleChannelInboundHandler<? extends Message> createMessageHandler(MessageEnum messageEnum) {
