@@ -27,7 +27,8 @@ public class ChatClient {
     public static void main(String[] args) {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
 
-        try (NioEventLoopGroup group = new NioEventLoopGroup()) {
+        NioEventLoopGroup group = new NioEventLoopGroup();
+        try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.group(group);
@@ -50,6 +51,8 @@ public class ChatClient {
             channel.closeFuture().sync();  // 当 channel 调用 close() 时会触发这一行的继续执行
         } catch (InterruptedException exception) {
             log.error("client error. reason: ", exception);
+        } finally {
+            group.shutdownGracefully();
         }
     }
 
