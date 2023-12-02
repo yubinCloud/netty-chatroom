@@ -9,6 +9,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class ChatMessageHandler extends SimpleChannelInboundHandler<ChatMessage> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMessage chatMessage) throws Exception {
-        System.out.println("$ 收到来自'" + chatMessage.getFrom() + "'的消息：" + chatMessage.getContent());
+        System.out.printf("* 收到消息 %s：%s", chatMessage.getFrom(), chatMessage.getContent());
     }
 }

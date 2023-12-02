@@ -39,6 +39,7 @@ public class ChatServer {
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_MEMBERS_REQUEST_MESSAGE));
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_JOIN_REQUEST_MESSAGE));
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_QUIT_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_CHAT_REQUEST_MESSAGE));
                 }
             });
             Channel channel = serverBootstrap.bind(8080).sync().channel();

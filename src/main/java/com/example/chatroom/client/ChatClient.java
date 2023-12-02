@@ -21,6 +21,7 @@ public class ChatClient {
     private static final GroupMembersResponseMessageHandler GROUP_MEMBERS_RESPONSE_MESSAGE_HANDLER = new GroupMembersResponseMessageHandler();
     private static final GroupJoinResponseMessageHandler GROUP_JOIN_RESPONSE_MESSAGE_HANDLER = new GroupJoinResponseMessageHandler();
     private static final GroupQuitResponseMessageHandler GROUP_QUIT_RESPONSE_MESSAGE_HANDLER = new GroupQuitResponseMessageHandler();
+    private static final GroupChatResponseMessageHandler GROUP_CHAT_RESPONSE_MESSAGE_HANDLER = new GroupChatResponseMessageHandler();
 
     public static void main(String[] args) {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
@@ -40,6 +41,7 @@ public class ChatClient {
                     ch.pipeline().addLast(GROUP_MEMBERS_RESPONSE_MESSAGE_HANDLER);
                     ch.pipeline().addLast(GROUP_JOIN_RESPONSE_MESSAGE_HANDLER);
                     ch.pipeline().addLast(GROUP_QUIT_RESPONSE_MESSAGE_HANDLER);
+                    ch.pipeline().addLast(GROUP_CHAT_RESPONSE_MESSAGE_HANDLER);
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();
