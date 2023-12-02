@@ -19,7 +19,7 @@ public interface Session {
      * 解绑会话
      * @param channel
      */
-    void unbind(Channel channel);
+    String unbind(Channel channel);
 
     /**
      * 获取属性

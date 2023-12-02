@@ -80,7 +80,7 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
             String command = scanner.nextLine();  // 假设用户输入的命令一定是正确的
             String[] args = command.split("\s+");
             String commandName = args[0].toUpperCase();
-            if ("quit".equals(commandName)) {
+            if ("QUIT".equals(commandName)) {
                 ctx.channel().close();
                 return;
             }

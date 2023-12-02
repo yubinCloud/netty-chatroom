@@ -3,6 +3,7 @@ package com.example.chatroom.server;
 import com.example.chatroom.message.MessageEnum;
 import com.example.chatroom.protocol.MessageCodec;
 import com.example.chatroom.protocol.ProtocolFrameDecoder;
+import com.example.chatroom.server.handler.QuitHandler;
 import com.example.chatroom.server.handler.factory.ServerHandlerFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -16,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ChatServer {
+
+    private static final QuitHandler QUIT_HANDLER = new QuitHandler();
 
     public static void main(String[] args) {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
@@ -33,6 +36,7 @@ public class ChatServer {
                     ch.pipeline().addLast(new ProtocolFrameDecoder());  // 将收到的字节流基于 LTC Decoder 进行组装或切分，使之成为一个个完整的包，解决半包和粘包的问题
 //                    ch.pipeline().addLast(LOGGING_HANDLER);  // 日志记录
                     ch.pipeline().addLast(new MessageCodec());  // 实现 bytes 与实体类 message 的编解码
+                    ch.pipeline().addLast(QUIT_HANDLER);  // 处理 client 断开的事件
                     // 添加各 simple channel inbound handler，每种 handler 负责处理一类 message
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.LOGIN_REQUEST_MESSAGE));
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_CREATE_REQUEST_MESSAGE));

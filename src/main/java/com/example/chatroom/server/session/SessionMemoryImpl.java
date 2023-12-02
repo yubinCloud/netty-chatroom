@@ -22,10 +22,11 @@ public class SessionMemoryImpl implements Session {
     }
 
     @Override
-    public void unbind(Channel channel) {
+    public String unbind(Channel channel) {
         String username = channelMapping.remove(channel);
         userMapping.remove(username);
         channelAttributeMapping.remove(channel);
+        return username;
     }
 
     @Override
