@@ -45,6 +45,25 @@ public class ClientBzHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
+     * 当 channel 关闭时，触发 inactivte 事件
+     * @param ctx
+     */
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        System.out.println("$ 断开连接");
+    }
+
+    /**
+     * 当发生异常而导致 channel 断开时
+     * @param ctx
+     * @param cause
+     */
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        System.out.println("$ 发生异常，断开连接");
+    }
+
+    /**
      * 负责与用户在 console 进行交互
      * @return
      */

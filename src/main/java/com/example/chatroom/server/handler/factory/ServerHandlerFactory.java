@@ -19,6 +19,7 @@ public abstract class ServerHandlerFactory {
         MESSAGE_HANDLER_MAP.put(MessageEnum.GROUP_JOIN_REQUEST_MESSAGE, new GroupJoinRequestMessageHandler());
         MESSAGE_HANDLER_MAP.put(MessageEnum.GROUP_QUIT_REQUEST_MESSAGE, new GroupQuitRequestMessageHandler());
         MESSAGE_HANDLER_MAP.put(MessageEnum.GROUP_CHAT_REQUEST_MESSAGE, new GroupChatRequestMessageHandler());
+        MESSAGE_HANDLER_MAP.put(MessageEnum.HEARTBEAT_REQUEST_MESSAGE, new HeartbeatRequestMessageHandler());
     }
 
     public static SimpleChannelInboundHandler<? extends Message> createMessageHandler(MessageEnum messageEnum) {
