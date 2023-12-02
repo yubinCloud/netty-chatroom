@@ -36,6 +36,9 @@ public class ChatServer {
                     // 添加各 simple channel inbound handler，每种 handler 负责处理一类 message
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.LOGIN_REQUEST_MESSAGE));
                     ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_CREATE_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_MEMBERS_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_JOIN_REQUEST_MESSAGE));
+                    ch.pipeline().addLast(ServerHandlerFactory.createMessageHandler(MessageEnum.GROUP_QUIT_REQUEST_MESSAGE));
                 }
             });
             Channel channel = serverBootstrap.bind(8080).sync().channel();

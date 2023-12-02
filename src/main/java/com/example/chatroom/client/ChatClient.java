@@ -1,9 +1,6 @@
 package com.example.chatroom.client;
 
-import com.example.chatroom.client.handler.ChatMessageHandler;
-import com.example.chatroom.client.handler.ClientBzHandler;
-import com.example.chatroom.client.handler.GroupCreateResponseMessageHandler;
-import com.example.chatroom.message.enums.GroupCreateResponseMessage;
+import com.example.chatroom.client.handler.*;
 import com.example.chatroom.protocol.MessageCodec;
 import com.example.chatroom.protocol.ProtocolFrameDecoder;
 import io.netty.bootstrap.Bootstrap;
@@ -21,6 +18,9 @@ public class ChatClient {
 
     private static final ChatMessageHandler CHAT_MESSAGE_HANDLER = new ChatMessageHandler();
     private static final GroupCreateResponseMessageHandler GROUP_CREATE_RESPONSE_MESSAGE_HANDLER = new GroupCreateResponseMessageHandler();
+    private static final GroupMembersResponseMessageHandler GROUP_MEMBERS_RESPONSE_MESSAGE_HANDLER = new GroupMembersResponseMessageHandler();
+    private static final GroupJoinResponseMessageHandler GROUP_JOIN_RESPONSE_MESSAGE_HANDLER = new GroupJoinResponseMessageHandler();
+    private static final GroupQuitResponseMessageHandler GROUP_QUIT_RESPONSE_MESSAGE_HANDLER = new GroupQuitResponseMessageHandler();
 
     public static void main(String[] args) {
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
@@ -37,6 +37,9 @@ public class ChatClient {
                     ch.pipeline().addLast("bz handler", new ClientBzHandler());  // client 的业务 handler
                     ch.pipeline().addLast(CHAT_MESSAGE_HANDLER);
                     ch.pipeline().addLast(GROUP_CREATE_RESPONSE_MESSAGE_HANDLER);
+                    ch.pipeline().addLast(GROUP_MEMBERS_RESPONSE_MESSAGE_HANDLER);
+                    ch.pipeline().addLast(GROUP_JOIN_RESPONSE_MESSAGE_HANDLER);
+                    ch.pipeline().addLast(GROUP_QUIT_RESPONSE_MESSAGE_HANDLER);
                 }
             });
             Channel channel = bootstrap.connect("localhost", 8080).sync().channel();
